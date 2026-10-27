@@ -382,6 +382,38 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
 }
 
 </style>
+<style id="latwo-css">
+/* Mniej wyborów naraz (prawo Hicka) i przewodnik */
+.gora button[hidden]{display:none}
+.spis .opcje{flex-direction:column;align-items:stretch}
+.spis .opcje-glowne{display:flex;gap:8px}
+.spis .opcje-glowne .btn{flex:1}
+.spis .wiecej{border:1px solid var(--linia);border-radius:12px;padding:0 12px}
+.spis .wiecej summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:.9rem;color:var(--tekst2);list-style:none}
+.spis .wiecej summary::-webkit-details-marker{display:none}
+.spis .wiecej summary::after{content:"▾";margin-left:auto;transition:transform .2s}
+.spis .wiecej[open] summary::after{transform:rotate(180deg)}
+.spis .opcje-wiecej{display:flex;flex-direction:column;gap:8px;padding:0 0 12px}
+.spis .opcje-wiecej .btn{text-align:left}
+#spisLista.grupy li.zwiniety{display:none}
+#spisLista.grupy.wszystkie li.zwiniety{display:block}
+#spisLista li.naglowek button{color:var(--tekst2)}
+#spisLista li.naglowek button b{color:var(--tekst2)}
+#spisLista li.pokaz-wszystkie button{justify-content:center;color:var(--tekst2);font-size:.85rem;border-bottom:0}
+.przew-warstwa{position:fixed;inset:0;z-index:100}
+.przew-warstwa[hidden]{display:none}
+.przew-dziura{position:fixed;border-radius:14px;box-shadow:0 0 0 9999px rgba(2,4,10,.78);outline:2px solid #FFD27A;outline-offset:2px;transition:all .3s ease;pointer-events:none}
+.przew-dziura.bez{outline:0}
+.przew-dymek{position:fixed;background:var(--karta);color:var(--tekst);border:1px solid var(--linia);border-radius:16px;padding:16px 18px 14px;box-shadow:0 12px 40px rgba(0,0,0,.5);animation:wjazd .25s ease}
+.przew-dymek h2{font-size:1.15rem;margin:.1em 0 .35em;line-height:1.25}
+.przew-dymek .przew-txt{margin:0 0 .9em;font-size:.95rem;line-height:1.5}
+.przew-licz{margin:0;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tekst2)}
+.przew-przyc{display:flex;gap:8px;justify-content:flex-end}
+.przew-przyc .btn{min-height:44px;min-width:92px}
+.przew-przyc .przew-pomin{background:none;border-color:transparent;color:var(--tekst2)}
+@media (prefers-reduced-motion: reduce){.przew-dziura{transition:none}.przew-dymek{animation:none}}
+@media print{.przew-warstwa{display:none!important}}
+</style>
 </head>
 <body>
 <canvas id="niebo" aria-hidden="true"></canvas><div class="mglawica" aria-hidden="true"></div>
@@ -1654,16 +1686,17 @@ if(/prowadz/.test(location.search+location.hash)||window.TRYB_PROWADZACEGO) body
 var slajdy=[].slice.call(document.querySelectorAll('.slajd')), n=slajdy.length, i=0;
 var nr=document.getElementById('nrSlajdu'), tyt=document.getElementById('tytulSlajdu'), post=document.getElementById('postep');
 var lista=document.getElementById('spisLista');
-slajdy.forEach(function(s,k){var li=document.createElement('li');if(s.classList.contains('rozdzial')){li.className='rozdz';li.setAttribute('data-p',s.dataset.p)}li.innerHTML='<button type="button"><b>'+(k+1)+'</b><span></span></button>';li.querySelector('span').textContent=s.dataset.tytul||('Slajd '+(k+1));li.firstChild.onclick=function(){idz(k);zamknij()};lista.appendChild(li)});
+slajdy.forEach(function(s,k){var li=document.createElement('li');li.dataset.k=k;if(s.classList.contains('rozdzial')){li.className='rozdz';li.setAttribute('data-p',s.dataset.p)}li.innerHTML='<button type="button"><b>'+(k+1)+'</b><span></span></button>';li.querySelector('span').textContent=s.dataset.tytul||('Slajd '+(k+1));li.firstChild.onclick=function(){idz(k);zamknij()};lista.appendChild(li)});
 function idz(k){
   k=Math.max(0,Math.min(n-1,k)); i=k;
   slajdy.forEach(function(s,j){s.classList.toggle('aktywny',j===k);s.classList.toggle('wczesniej',j<k);if(!body.classList.contains('przewijanie'))s.setAttribute('aria-hidden',j===k?'false':'true');else s.removeAttribute('aria-hidden')});
   nr.textContent=(k+1)+'/'+n; tyt.textContent=slajdy[k].dataset.tytul||''; post.style.width=((k+1)/n*100)+'%';
   document.getElementById('wsteczBtn').disabled=k===0; document.getElementById('dalejBtn').disabled=k===n-1;
-  [].forEach.call(lista.children,function(li,j){li.classList.toggle('biezacy',j===k)});
+  [].forEach.call(lista.querySelectorAll('li[data-k]'),function(li){li.classList.toggle('biezacy',+li.dataset.k===k)});
   if(!body.classList.contains('przewijanie')) slajdy[k].scrollTop=0;
   try{history.replaceState(null,'','#'+(k+1)+(body.classList.contains('prowadzacy')&&!window.TRYB_PROWADZACEGO?'-prowadzacy':''))}catch(e){}
   zap('slajd',k);
+  document.dispatchEvent(new CustomEvent('slajd',{detail:{k:k,p:+slajdy[k].dataset.p||0}}));
 }
 document.getElementById('wsteczBtn').onclick=function(){idz(i-1)};window.idzDoSlajdu=idz;
 document.getElementById('dalejBtn').onclick=function(){idz(i+1)};
@@ -1673,7 +1706,7 @@ document.getElementById('tor').addEventListener('touchstart',function(e){sx=e.to
 document.getElementById('tor').addEventListener('touchend',function(e){if(body.classList.contains('przewijanie'))return;var t=e.target;if(t.closest&&(t.closest('input[type=range],.tabela,textarea')||t.closest('.os')))return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.6&&Date.now()-st<700)idz(i+(dx<0?1:-1))});
 var spis=document.getElementById('spis');
 function zamknij(){spis.classList.remove('otwarty')}
-document.getElementById('spisBtn').onclick=function(){spis.classList.add('otwarty');var b=lista.children[i];if(b&&b.scrollIntoView)b.scrollIntoView({block:'center'})};
+document.getElementById('spisBtn').onclick=function(){spis.classList.add('otwarty');var b=lista.querySelector('li[data-k="'+i+'"]');if(b&&b.scrollIntoView)b.scrollIntoView({block:'center'})};
 document.getElementById('zamknijSpis').onclick=zamknij;
 spis.onclick=function(e){if(e.target===spis)zamknij()};
 document.getElementById('trybBtn').onclick=function(){body.classList.toggle('przewijanie');if(body.classList.contains('przewijanie'))slajdy.forEach(function(x){x.removeAttribute('aria-hidden')});zap('przewijanie',body.classList.contains('przewijanie'));zamknij();if(body.classList.contains('przewijanie'))slajdy[i].scrollIntoView();else idz(i)};
@@ -2138,7 +2171,7 @@ ST.forEach(function(s){var x=s[3],y=s[4],lewo=x>180,tx=lewo?x-28:x+28;
   if(w2.length)h+='<text x="'+tx+'" y="'+(y+23)+'" text-anchor="'+(lewo?'end':'start')+'" class="et" font-size="12.5" font-weight="600" fill="var(--tekst)">'+w2.join(' ')+'</text>';
   h+='</g>'});
 svg.innerHTML=h;
-function idzDo(p){var k=pierwszy(p);if(k>=0)document.querySelectorAll('#spisLista button')[k].click()}
+function idzDo(p){var k=pierwszy(p);if(k>=0)document.querySelector('#spisLista li[data-k="'+k+'"] button').click()}
 svg.querySelectorAll('.stacja').forEach(function(g){g.addEventListener('click',function(){idzDo(+g.dataset.p)});g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();idzDo(+g.dataset.p)}})});
 var ostatni=0;try{ostatni=+(localStorage.getItem('historia-org:ostatniP')||0)}catch(e){}
 function odswiez(){var a=document.querySelector('.slajd.aktywny'),p=a?+a.dataset.p:0,od=odcz();
@@ -2146,7 +2179,7 @@ function odswiez(){var a=document.querySelector('.slajd.aktywny'),p=a?+a.dataset
   svg.querySelectorAll('.stacja').forEach(function(g){var q=+g.dataset.p;g.classList.toggle('odwiedzona',!!od[q]);g.classList.toggle('biezaca',q===(p||ostatni||1))});
   var n=Object.keys(od).length;document.getElementById('mapaPostep').textContent=n?('Odwiedzone przystanki: '+n+' z 9'):'Wyruszamy z przystanku 1.'}
 new MutationObserver(odswiez).observe(document.getElementById('tor'),{attributes:true,subtree:true,attributeFilter:['class']});odswiez();
-document.getElementById('mapaBtn').onclick=function(){var k=slajdy.findIndex(function(x){return x.dataset.tytul==='Mapa podróży'});if(k>=0)document.querySelectorAll('#spisLista button')[k].click()};
+document.getElementById('mapaBtn').onclick=function(){var k=slajdy.findIndex(function(x){return x.dataset.tytul==='Mapa podróży'});if(k>=0)document.querySelector('#spisLista li[data-k="'+k+'"] button').click()};
 })();
 </script>
 
@@ -2269,6 +2302,93 @@ addEventListener('wheel',function(e){if(prz()||e.ctrlKey)return;var t=e.target;i
   document.getElementById(teraz==='dol'?'dalejBtn':'wsteczBtn').click()},{passive:true});
 })();
 
+</script>
+<script id="latwo-js">
+/* Mniej wyborów naraz (prawo Hicka) i przewodnik dla osób, które otwierają materiały pierwszy raz.
+   Wymaga od silnika: .slajd[data-p], #spisLista, .spis .opcje, #mapaBtn, #motywBtn, #trybBtn, window.idzDoSlajdu(k), zdarzenie „slajd”. */
+(function(){
+'use strict';
+var body=document.body,lista=document.getElementById('spisLista'),opcje=document.querySelector('.spis .opcje');
+if(!lista||!opcje)return;
+var slajdy=[].slice.call(document.querySelectorAll('.slajd'));
+function gl(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function gz(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function el(tag,kl,txt){var e=document.createElement(tag);if(kl)e.className=kl;if(txt)e.textContent=txt;return e}
+var NR=(window.ZAJECIA&&window.ZAJECIA.nr)||(/Historia organizacji/.test(document.title)?2:0);
+if(NR&&!window.TRYB_PROWADZACEGO)gz('pz:ostatnie',String(NR));
+function zamknijSpis(){var z=document.getElementById('spis');if(z)z.classList.remove('otwarty')}
+
+/* ---------- 1. Nagłówek: spis, tytuł, numer. Mapa i motyw przechodzą do menu ---------- */
+var mapaB=document.getElementById('mapaBtn'),motywB=document.getElementById('motywBtn'),trybB=document.getElementById('trybBtn'),qrB=document.getElementById('qrBtn');
+var zamB=document.getElementById('zamknijSpis'),wszystkieA=opcje.querySelector('a[href="../"]');
+if(mapaB)mapaB.hidden=true;
+if(motywB)motywB.hidden=true;
+var glowne=el('div','opcje-glowne');
+if(mapaB){var m=el('button','btn glowny','🗺 Mapa podróży');m.type='button';m.onclick=function(){mapaB.click();zamknijSpis()};glowne.appendChild(m)}
+if(zamB)glowne.appendChild(zamB);
+var wiecej=el('details','wiecej'),sm=el('summary','','Ustawienia i pomoc'),wn=el('div','opcje-wiecej');
+wiecej.appendChild(sm);wiecej.appendChild(wn);
+if(trybB){trybB.textContent='Przewijanie albo slajdy';wn.appendChild(trybB)}
+if(motywB){var mt=el('button','btn','◐ Kosmos albo jasny (w słońcu)');mt.type='button';mt.onclick=function(){motywB.click()};wn.appendChild(mt)}
+if(wszystkieA){wszystkieA.textContent='Wszystkie zajęcia';wn.appendChild(wszystkieA)}
+var pomoc=el('button','btn','Jak korzystać? (przewodnik)');pomoc.type='button';pomoc.onclick=function(){zamknijSpis();wiecej.open=false;setTimeout(start,150)};wn.appendChild(pomoc);
+opcje.innerHTML='';opcje.appendChild(glowne);if(qrB)opcje.appendChild(qrB);opcje.appendChild(wiecej);
+
+/* ---------- 2. Spis w grupach: widać nagłówki przystanków i slajdy tylko bieżącej grupy ---------- */
+var li=[].slice.call(lista.children),pierwszyRozdz=slajdy.findIndex(function(s){return s.classList.contains('rozdzial')}),grupy=[];
+if(pierwszyRozdz>0&&li.length===slajdy.length){
+  slajdy.forEach(function(s,k){var p=+s.dataset.p||0,g=p?('p'+p):(k<pierwszyRozdz?'start':'koniec');li[k].dataset.g=g;if(grupy.indexOf(g)<0)grupy.push(g)});
+  function naglowek(g,nazwa,k){var h=el('li','rozdz naglowek');h.dataset.g=g;h.dataset.naglowek='1';var b=el('button');b.type='button';b.innerHTML='<b>✦</b><span></span>';b.querySelector('span').textContent=nazwa;b.onclick=function(){window.idzDoSlajdu(k);zamknijSpis()};h.appendChild(b);return h}
+  lista.insertBefore(naglowek('start','Na start',0),li[0]);
+  var pk=slajdy.length-1;while(pk>0&&li[pk].dataset.g==='koniec'&&li[pk-1].dataset.g==='koniec')pk--;
+  if(li[pk].dataset.g==='koniec')lista.insertBefore(naglowek('koniec','Na koniec: quiz, bibliografia, lektury',pk),li[pk]);
+  li.forEach(function(x){if(x.classList.contains('rozdz'))x.dataset.naglowek='1'});
+  lista.classList.add('grupy');
+  var odsl=el('li','pokaz-wszystkie'),ob=el('button','','Pokaż wszystkie slajdy');ob.type='button';
+  ob.onclick=function(){var w=lista.classList.toggle('wszystkie');ob.textContent=w?'Pokaż tylko bieżący przystanek':'Pokaż wszystkie slajdy'};odsl.appendChild(ob);lista.appendChild(odsl);
+  function grupuj(k){var g=li[k]&&li[k].dataset.g;[].forEach.call(lista.children,function(x){if(x.dataset.g)x.classList.toggle('zwiniety',!x.dataset.naglowek&&x.dataset.g!==g)})}
+  document.addEventListener('slajd',function(e){grupuj(e.detail.k)});
+  var a=slajdy.findIndex(function(s){return s.classList.contains('aktywny')});grupuj(a<0?0:a);
+}
+
+/* ---------- 3. Przewodnik przy pierwszej wizycie ---------- */
+var KLUCZ='pz:przewodnik',komp=function(){return body.classList.contains('przewijanie')&&body.classList.contains('komputer')};
+function widoczny(e){if(!e)return false;var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'}
+function kroki(){var dotyk=matchMedia('(pointer: coarse)').matches,prz=body.classList.contains('przewijanie'),szeroki=innerWidth>=1200&&komp();
+  return [
+  {cel:null,tyt:'Witaj w podróży',txt:'Każde zajęcia to wyprawa z kilkoma przystankami. Pokażę Ci w 20 sekund, jak się tu poruszać.'},
+  prz?{cel:'#tor',tyt:'Przewijaj w dół',txt:komp()?'Kółkiem myszy albo klawiszami strzałek przewijasz kolejne slajdy. Pasek u góry pokazuje, gdzie jesteś.':'Przewijaj palcem w dół. Pasek u góry pokazuje, gdzie jesteś.'}
+     :{cel:'#dalejBtn',tyt:'Jeden ruch: dalej',txt:dotyk?'Stuknij „Dalej” albo przesuń palcem w lewo. Długi slajd najpierw przewiń w dół.':'Kliknij „Dalej” albo naciśnij strzałkę w prawo.'},
+  szeroki?{cel:'#spis .panel',tyt:'Spis przystanków',txt:'Po lewej widzisz przystanki. Rozwija się tylko ten, na którym jesteś. Mapa i ustawienia są na górze spisu.'}
+     :{cel:'#spisBtn',tyt:'Wszystko inne jest w menu',txt:'Tu otworzysz spis przystanków, mapę podróży i ustawienia, na przykład jasny tryb do czytania w słońcu.'},
+  {cel:'.gora .tytul',tyt:'Gdzie jestem?',txt:'Nad tytułem slajdu widać numer i nazwę przystanku. Każdy przystanek kończy się krótkim quizem.'},
+  {cel:null,tyt:'Twoje odpowiedzi zostają u Ciebie',txt:'Quizy, ankiety i notatki zapisują się tylko na tym urządzeniu. Nic nie wysyłamy. Przewodnik włączysz ponownie w menu: Ustawienia i pomoc.',ost:true}
+  ]}
+var warstwa,dziura,dymek,nr=0,lista_k=[],poprz=null;
+function zbuduj(){warstwa=el('div','przew-warstwa');warstwa.setAttribute('role','dialog');warstwa.setAttribute('aria-modal','true');warstwa.setAttribute('aria-labelledby','przewTyt');
+  dziura=el('div','przew-dziura');dymek=el('div','przew-dymek');
+  dymek.innerHTML='<p class="przew-licz" aria-hidden="true"></p><h2 id="przewTyt"></h2><p class="przew-txt"></p><div class="przew-przyc"><button type="button" class="btn przew-pomin">Pomiń</button><button type="button" class="btn glowny przew-dalej">Dalej</button></div>';
+  warstwa.appendChild(dziura);warstwa.appendChild(dymek);document.body.appendChild(warstwa);
+  dymek.querySelector('.przew-pomin').onclick=koniec;dymek.querySelector('.przew-dalej').onclick=function(){if(nr>=lista_k.length-1)koniec();else pokaz(nr+1)};
+  warstwa.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();koniec()}if(e.key==='Tab'){var f=[].slice.call(dymek.querySelectorAll('button')),i=f.indexOf(document.activeElement);e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus()}e.stopPropagation()});
+  addEventListener('resize',function(){if(warstwa&&!warstwa.hidden)ustaw()})}
+function ustaw(){var k=lista_k[nr],c=k.cel&&document.querySelector(k.cel),W=innerWidth,H=innerHeight;
+  if(c&&widoczny(c)){var r=c.getBoundingClientRect(),m=6,t=Math.max(4,r.top-m),l=Math.max(4,r.left-m),w=Math.min(W-8,r.width+2*m),h=Math.min(H-8,r.height+2*m);
+    if(k.cel==='#tor'){t=H*.2;h=H*.38;l=Math.max(8,r.left+8);w=Math.min(W-8,r.right-8)-l}
+    dziura.style.cssText='top:'+t+'px;left:'+l+'px;width:'+w+'px;height:'+h+'px';dziura.classList.remove('bez');
+    var dh=dymek.offsetHeight,dw=Math.min(360,W-24),dl=Math.min(Math.max(12,l+w/2-dw/2),W-dw-12),dt=(t+h+14+dh<H)?t+h+14:Math.max(12,t-dh-14);
+    if(h>H*.5&&w<=W*.5){dt=Math.max(12,Math.min(H-dh-12,t+60));dl=(l+w+14+dw<W)?l+w+14:Math.max(12,l-dw-14)}
+    else if(w>W*.5&&h>H*.5){dl=W-dw-24;dt=H-dh-24}
+    dymek.style.cssText='width:'+dw+'px;left:'+dl+'px;top:'+dt+'px'}
+  else{dziura.classList.add('bez');dziura.style.cssText='top:50%;left:50%;width:0;height:0';var dw2=Math.min(380,W-24);dymek.style.cssText='width:'+dw2+'px;left:'+((W-dw2)/2)+'px;top:'+Math.max(12,(H-dymek.offsetHeight)/2)+'px'}}
+function pokaz(i){nr=i;var k=lista_k[i];dymek.querySelector('.przew-licz').textContent=(i+1)+' z '+lista_k.length;dymek.querySelector('h2').textContent=k.tyt;dymek.querySelector('.przew-txt').textContent=k.txt;
+  var d=dymek.querySelector('.przew-dalej'),p=dymek.querySelector('.przew-pomin');d.textContent=i===0?'Pokaż':(k.ost?'Zaczynamy':'Dalej');p.hidden=!!k.ost;
+  ustaw();requestAnimationFrame(ustaw);d.focus()}
+function start(){if(!warstwa)zbuduj();poprz=document.activeElement;lista_k=kroki();warstwa.hidden=false;body.classList.add('przew-otwarty');pokaz(0)}
+function koniec(){gz(KLUCZ,'1');if(warstwa)warstwa.hidden=true;body.classList.remove('przew-otwarty');if(poprz&&poprz.focus)poprz.focus()}
+window.pokazPrzewodnik=start;
+if(!gl(KLUCZ)&&!window.TRYB_PROWADZACEGO&&!/[?&]bez-przewodnika/.test(location.search))setTimeout(start,700);
+})();
 </script>
 </body>
 </html>
