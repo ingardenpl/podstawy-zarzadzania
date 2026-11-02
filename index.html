@@ -420,6 +420,23 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
 .przew-przyc .przew-pomin{background:none;border-color:transparent;color:var(--tekst2)}
 @media (prefers-reduced-motion: reduce){.przew-dziura{transition:none}.przew-dymek{animation:none}}
 @media print{.przew-warstwa{display:none!important}}
+
+/* „Studio przypadku”: karta zadania projektowego w grupach */
+.zadanie{background:var(--karta);border:1px solid var(--linia);border-left:4px solid var(--st);border-radius:14px;padding:14px 15px;margin:1em 0}
+.zadanie .naglowek-zad{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--st);font-weight:650;margin:0 0 .5em}
+.zadanie label{display:block;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--tekst2);margin:.9em 0 .3em}
+.zadanie input[type=text],.zadanie textarea{width:100%;font:inherit;font-size:1rem;color:var(--tekst);background:var(--tlo);border:1px solid var(--linia);border-radius:10px;padding:10px 12px}
+.zadanie textarea{min-height:7.5em;line-height:1.55}
+.zadanie .przyciski{display:flex;flex-wrap:wrap;gap:8px;margin-top:.9em}
+.zadanie .status{font-size:.85rem;color:var(--ok);min-height:1.2em;margin:.4em 0 0}
+.zadanie .licz{font-size:.72rem;color:var(--tekst2);text-align:right;margin:.2em 0 0}
+.studio-karta{border:1px dashed color-mix(in srgb,var(--st) 60%,transparent);border-radius:14px;padding:12px 14px;margin:.8em 0}
+.studio-karta .etykieta{display:inline-block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--st);margin-bottom:.3em}
+/* audyt UX: szerokie tabele przewijają się w poziomie we własnym kontenerze */
+.tabela{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;margin:.6em 0}
+.tabela table{min-width:100%}
+/* audyt UX: krótsze puste pola formularza na wąskich telefonach */
+@media (max-width:360px){.zadanie textarea{min-height:5em}.zadanie{padding:12px}}
 </style>
 </head>
 <body>
@@ -846,7 +863,7 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
   <h2>Od mózgu do organizacji</h2>
   <p>Organizacje nie powstały na pustym miejscu. Każda zdolność, którą dał nam mózg, stała się później zdolnością organizacji, a dziś staje się zdolnością maszyn.</p>
   <div class="tabela" style="overflow-x:auto">
-  <table>
+  <div class="tabela"><table>
     <thead><tr><th>Zdolność mózgu</th><th>W organizacji</th><th>W AI</th></tr></thead>
     <tbody>
       <tr><td>wzmacnianie: ucz się z nagrody</td><td>premia, akord, KPI (Taylor)</td><td>uczenie ze wzmocnieniem</td></tr>
@@ -854,7 +871,7 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
       <tr><td>mentalizowanie: zrozum innych</td><td>negocjacje, władza, konflikt (Follett)</td><td>modele przewidujące zachowania ludzi</td></tr>
       <tr><td>mowa: dziel się symulacjami</td><td>procedury, prawo, pismo (Weber)</td><td>duże modele językowe</td></tr>
     </tbody>
-  </table>
+  </table></div>
   </div>
   <div class="ramka akcent"><p style="margin:0"><strong>Perspektywa Tysona.</strong> Wszystko, o czym będziemy mówić w tym semestrze, od Taylora do algorytmów, zmieściło się w ostatniej ćwierci sekundy kosmicznego roku. Na tym tle tym bardziej widać, jak młode i kruche są nasze instytucje.</p></div>
 </div>
@@ -1542,6 +1559,147 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
   <div class="pyt ramka" data-ok="2"><p><strong>1. W którym wariancie eksperymentu Milgrama posłuszeństwo spadło najbardziej?</strong></p><div class="wybory"><button class="wybor" type="button">badanie w biurowcu w Bridgeport</button><button class="wybor" type="button">polecenia przez telefon</button><button class="wybor" type="button">dwóch innych „nauczycieli” odmawia</button><button class="wybor" type="button">uczeń w tym samym pokoju</button></div><p class="male odslona" hidden>Do 10%: najsilniej działa przykład innych.</p></div><div class="pyt ramka" data-ok="1"><p><strong>2. Art. 100 § 1 KP każe wykonywać polecenia przełożonych, jeśli:</strong></p><div class="wybory"><button class="wybor" type="button">są wydane na piśmie</button><button class="wybor" type="button">nie są sprzeczne z prawem lub umową o pracę</button><button class="wybor" type="button">zatwierdził je zarząd</button><button class="wybor" type="button">pracownik się z nimi zgadza</button></div><p class="male odslona" hidden>To prawny bezpiecznik w hierarchii.</p></div><div class="pyt ramka" data-ok="1"><p><strong>3. Kanał zgłoszeń dla sygnalistów musi mieć firma, która zatrudnia co najmniej:</strong></p><div class="wybory"><button class="wybor" type="button">10 osób</button><button class="wybor" type="button">50 osób</button><button class="wybor" type="button">250 osób</button><button class="wybor" type="button">1000 osób</button></div><p class="male odslona" hidden>Ustawa z 14 czerwca 2024 r. o ochronie sygnalistów.</p></div>
   <p class="wynik-licznik" data-wynik-p></p>
   <p style="margin-top:1em"><button class="btn glowny" type="button" data-dalej>Dalej: quiz końcowy ›</button></p>
+</div>
+</section>
+
+<!-- STUDIO PRZYPADKU -->
+<section class="slajd" data-p="0" data-tytul="Studio: DIKW w praktyce">
+<div class="wnetrze">
+  <span class="etap">Studio przypadku · DIKW</span>
+  <h2>DIKW w praktyce: kto zdecydował?</h2>
+  <p>Piramidę DIKW znasz z przystanku 6. Teraz użyjesz jej jak narzędzia na prawdziwym przypadku. Pracujcie w grupach 4–6 osób.</p>
+  <p>Przypadek rozpisujesz w czterech krokach. Rozwiń je po kolei.</p>
+  <details class="krok"><summary>1. Dane</summary><p>Co dokładnie zapisano albo zmierzono? Tylko surowe fakty, bez wniosków.</p></details>
+  <details class="krok"><summary>2. Informacja</summary><p>Jak ktoś te dane uporządkował? Mapa, tabela, wykres, porównanie. Co dzięki temu widać?</p></details>
+  <details class="krok"><summary>3. Wiedza</summary><p>Jak ktoś te dane wyjaśnił? Jaką przyczynę wskazał i dlaczego uznano ją za wiarygodną?</p></details>
+  <details class="krok"><summary>4. Mądrość</summary><p>Kto podjął decyzję, jaką i na czyją odpowiedzialność? Co faktycznie zrobiono?</p></details>
+  <div class="ramka akcent">
+    <p><strong>Mini-przykład (przypadek fikcyjny, oparty na typowej pracy biura podawczego sądu).</strong></p>
+    <p><strong>Dane:</strong> rejestr wpływu pism z każdego dnia. <strong>Informacja:</strong> najwięcej pism rejestruje się w poniedziałki. <strong>Wiedza:</strong> pisma nadane elektronicznie w weekend trafiają do rejestracji dopiero w poniedziałek. <strong>Mądrość:</strong> kierownik biura (to on decyduje) przesuwa jedną osobę na poniedziałkowy dyżur rejestracji i uprzedza prezesa sądu.</p>
+  </div>
+  <div class="zapamietaj"><p style="margin:0">Każdy poziom coś dodaje. Dane nie mówią, co robić. Zawsze trzeba też wskazać osobę, która zdecydowała.</p></div>
+</div>
+</section>
+
+<section class="slajd" data-p="0" data-tytul="Studio: przypadki DIKW" data-id="studio-przypadki">
+<div class="wnetrze">
+  <span class="etap">Studio przypadku · wybierz grupę</span>
+  <h2>Trzy przypadki, trzy grupy</h2>
+  <p>Każda grupa bierze inny przypadek. Przeczytajcie fakty i rozpiszcie je na D, I, K, W. Potem porównajcie wyniki.</p>
+  <div class="zakl">
+    <div class="os"><button type="button">Grupa A</button><button type="button">Grupa B</button><button type="button">Grupa C</button></div>
+    <div class="zakl-panel">
+      <h3>A. John Snow i cholera na Broad Street (1854)</h3>
+      <p>31 sierpnia 1854 w londyńskim Soho wybuchła epidemia cholery. W ciągu kilku dni zmarły setki osób.</p>
+      <p>Wtedy dominowała teoria, że choroby szerzą się przez złe powietrze. Lekarz John Snow od 1849 roku twierdził, że cholera przenosi się przez zanieczyszczoną wodę.</p>
+      <p>Snow zbierał adresy chorych i zaznaczał je na mapie. Przypadki skupiały się wokół pompy przy Broad Street. Pracownicy pobliskiego browaru nie chorowali, bo nie pili wody z tej pompy.</p>
+      <p>Wikary Henry Whitehead pomógł znaleźć pierwszy przypadek, niemowlę z cholerą. 7 września Snow przedstawił dane Radzie Opiekunów parafii St James. Następnego dnia zdjęto uchwyt pompy.</p>
+      <p class="male">Zachorowania zaczęły słabnąć jeszcze przed zdjęciem uchwytu. Sam Snow o tym pisał.</p>
+      <p><strong>Zadanie:</strong> wskażcie D, I, K, W. Kto podjął decyzję: Snow czy Rada? Czy sama decyzja dowodzi, że Snow miał rację?</p>
+    </div>
+    <div class="zakl-panel" hidden>
+      <h3>B. Florence Nightingale i diagram śmiertelności (1858)</h3>
+      <p>W wojnie krymskiej (1853–1856) wielu brytyjskich żołnierzy umierało w szpitalach, nie na polu bitwy. W Scutari w pierwszą zimę zmarło ponad 4 tysiące osób. Wielokrotnie więcej z powodu chorób niż ran.</p>
+      <p>W marcu 1855 rząd wysłał Komisję Sanitarną. Przepłukała kanały i poprawiła wentylację, a śmiertelność wyraźnie spadła.</p>
+      <p>W 1858 roku Nightingale opublikowała dane o śmiertelności armii w formie „diagramu przyczyn śmierci w armii na Wschodzie”. Kolor niebieski oznaczał choroby, którym można było zapobiec, czerwony rany, czarny pozostałe przyczyny.</p>
+      <p>Diagram pokazywała posłom i urzędnikom, którzy nie czytali tabel. Według części opracowań pomógł jej zdobyć poparcie dla komisji badającej zdrowie armii.</p>
+      <p class="male">Historycy spierają się, czy forma diagramu nie przesadza z różnicami, bo wartość odczytuje się z promienia, a oko ocenia pole.</p>
+      <p><strong>Zadanie:</strong> wskażcie D, I, K, W. Komisja Sanitarna działała w 1855, diagram powstał w 1858. Jakiej decyzji miał dotyczyć diagram i kto miał ją podjąć?</p>
+    </div>
+    <div class="zakl-panel" hidden>
+      <h3>C. Sprawa Horizon w brytyjskiej poczcie (1999–2024)</h3>
+      <p>Od 1999 roku urzędy pocztowe w Wielkiej Brytanii używały systemu księgowego Horizon firmy Fujitsu. System pokazywał braki w kasach wielu placówek prowadzonych przez tzw. subpostmasterów.</p>
+      <p>Między 1999 a 2015 rokiem ścigano karnie ponad 900 subpostmasterów. Około 700 spraw wniosła sama poczta jako oskarżyciel prywatny. Dla 236 osób skończyło się więzieniem.</p>
+      <p>W grudniu 2019 roku w sprawie <em>Bates v Post Office</em> sędzia Fraser z Sądu Wysokiego uznał, że Horizon zawierał błędy i defekty. Mogły one tworzyć pozorne braki w kasach. W kwietniu 2021 roku sąd apelacyjny uchylił 39 wyroków. W maju 2024 parlament uchwalił ustawę unieważniającą skazania.</p>
+      <p><strong>Zadanie:</strong> wskażcie D, I, K, W dla dwóch momentów: dla poczty przed 2015 rokiem i dla sądu w 2019 roku. Na którym poziomie powstał błąd? Kto decydował o ściganiu, a kto o uchyleniu wyroków?</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="slajd" data-p="0" data-tytul="Studio: wynik DIKW">
+<div class="wnetrze">
+  <span class="etap">Studio przypadku · wynik grupy</span>
+  <h2>Wynik grupy: DIKW</h2>
+  <p>Wypełnijcie pola po kolei. Dobra odpowiedź spełnia cztery warunki.</p>
+  <ul>
+    <li>Dane to surowe fakty, bez wniosków i ocen.</li>
+    <li>Każdy kolejny poziom mówi coś, czego nie było poziom niżej.</li>
+    <li>Wskazujecie konkretną osobę lub organ, który zdecydował, i co zrobił.</li>
+    <li>Piszecie, na którym poziomie coś mogło pójść inaczej.</li>
+  </ul>
+  <div class="zadanie" data-zadanie="studio-dikw" data-tytul="Studio przypadku: DIKW (zajęcia 2)">
+    <p class="naglowek-zad">Studio przypadku · wynik grupy</p>
+    <label for="sd0">Przypadek (A Snow, B Nightingale albo C Horizon)</label>
+    <input type="text" id="sd0" data-pole="przypadek" autocomplete="off">
+    <label for="sd1">1. Dane</label>
+    <textarea id="sd1" data-pole="dane" data-slowa="15–40"></textarea>
+    <label for="sd2">2. Informacja</label>
+    <textarea id="sd2" data-pole="informacja" data-slowa="15–40"></textarea>
+    <label for="sd3">3. Wiedza</label>
+    <textarea id="sd3" data-pole="wiedza" data-slowa="20–50"></textarea>
+    <label for="sd4">4. Mądrość: kto zdecydował i co zrobił</label>
+    <textarea id="sd4" data-pole="madrosc" data-slowa="20–50"></textarea>
+    <label for="sd5">Na którym poziomie jest najsłabszy punkt tego przypadku? Dlaczego?</label>
+    <textarea id="sd5" data-pole="slaby" data-slowa="20–50"></textarea>
+    <label for="sd6">Jak użyjecie DIKW w projekcie nr 2 „Zaprojektuj organizację”?</label>
+    <textarea id="sd6" data-pole="projekt2" data-slowa="15–40"></textarea>
+  </div>
+</div>
+</section>
+
+<section class="slajd" data-p="0" data-tytul="Studio: SWOT">
+<div class="wnetrze">
+  <span class="etap">Studio przypadku · SWOT</span>
+  <h2>SWOT: cztery pola, jeden wniosek</h2>
+  <p>SWOT porządkuje sytuację organizacji. Dzieli ją na to, co zależy od niej, i na to, co dzieje się wokół niej.</p>
+  <div class="siatka dwa">
+    <div class="kafel"><h3>S: mocne strony</h3><p>Wewnątrz organizacji. Co robimy lepiej niż inni?</p></div>
+    <div class="kafel"><h3>W: słabe strony</h3><p>Wewnątrz organizacji. Czego nam brakuje?</p></div>
+    <div class="kafel"><h3>O: szanse</h3><p>Na zewnątrz. Co w otoczeniu możemy wykorzystać?</p></div>
+    <div class="kafel"><h3>T: zagrożenia</h3><p>Na zewnątrz. Co z otoczenia nam szkodzi?</p></div>
+  </div>
+  <details class="krok"><summary>Jak to zrobić</summary><p>1. Najpierw granica: wewnątrz czy na zewnątrz organizacji. 2. Wpisujcie fakty i obserwacje, nie życzenia. 3. Na końcu połączcie pola: którą mocną stroną wykorzystacie którą szansę albo jak osłabicie zagrożenie.</p></details>
+  <div class="ramka akcent">
+    <p><strong>Mini-przykład (przypadek fikcyjny: sklep internetowy z ćwiczenia o DIKW).</strong></p>
+    <p><strong>S:</strong> szybka dostawa. <strong>W:</strong> zależność od jednego kuriera. <strong>O:</strong> rosnące zakupy online w regionie. <strong>T:</strong> konkurent dostarcza w 24 godziny.</p>
+    <p style="margin:0"><strong>Wniosek:</strong> szybką dostawą (S) odpowiemy konkurentowi (T), a drugi kurier zmniejszy zależność (W).</p>
+  </div>
+  <h3>Wasz przypadek (fikcyjny, realistyczny)</h3>
+  <div class="ramka">
+    <p>Kancelaria w Lublinie. Sześć osób: trzech prawników, dwóch aplikantów i asystentka. Obsługuje lokalne firmy i osoby prywatne w sprawach cywilnych, umowach i sporach gospodarczych.</p>
+    <p>Dużą część pracy zajmuje pisanie pism, przeglądanie umów i szukanie orzeczeń. Klienci znają kancelarię z polecenia. Narzędzia AI potrafią dziś zrobić część tych zadań w kilka minut.</p>
+    <p style="margin:0">Przygotujcie SWOT kancelarii wobec AI. Pomyślcie też o tajemnicy zawodowej i o odpowiedzialności za pismo, które podpisuje prawnik.</p>
+  </div>
+</div>
+</section>
+
+<section class="slajd" data-p="0" data-tytul="Studio: wynik SWOT">
+<div class="wnetrze">
+  <span class="etap">Studio przypadku · wynik grupy</span>
+  <h2>Wynik grupy: SWOT kancelarii</h2>
+  <p>Dobry SWOT spełnia cztery warunki.</p>
+  <ul>
+    <li>Mocne i słabe strony dotyczą kancelarii. Szanse i zagrożenia dotyczą otoczenia.</li>
+    <li>Każdy punkt jest konkretny i da się go sprawdzić. Nie piszecie „AI jest groźne”.</li>
+    <li>W każdym polu są co najmniej dwa punkty.</li>
+    <li>Wniosek łączy pola i mówi, co kancelaria zrobi najpierw.</li>
+  </ul>
+  <div class="zadanie" data-zadanie="studio-swot" data-tytul="Studio przypadku: SWOT (zajęcia 2)">
+    <p class="naglowek-zad">Studio przypadku · wynik grupy</p>
+    <label for="ss1">S: mocne strony kancelarii</label>
+    <textarea id="ss1" data-pole="mocne" data-slowa="20–60"></textarea>
+    <label for="ss2">W: słabe strony kancelarii</label>
+    <textarea id="ss2" data-pole="slabe" data-slowa="20–60"></textarea>
+    <label for="ss3">O: szanse w otoczeniu</label>
+    <textarea id="ss3" data-pole="szanse" data-slowa="20–60"></textarea>
+    <label for="ss4">T: zagrożenia w otoczeniu</label>
+    <textarea id="ss4" data-pole="zagrozenia" data-slowa="20–60"></textarea>
+    <label for="ss5">Wniosek dla wspólników: co zrobić najpierw i dlaczego?</label>
+    <textarea id="ss5" data-pole="wniosek" data-slowa="30–70"></textarea>
+    <label for="ss6">Jak użyjecie SWOT w projekcie nr 2 „Zaprojektuj organizację”?</label>
+    <textarea id="ss6" data-pole="projekt2" data-slowa="15–40"></textarea>
+  </div>
 </div>
 </section>
 
@@ -2340,6 +2498,11 @@ addEventListener('wheel',function(e){if(prz()||e.ctrlKey)return;var t=e.target;i
 })();
 
 </script>
+<script id="zakl-studio">
+(function(){[].slice.call(document.querySelectorAll('.zakl')).forEach(function(z){var bs=[].slice.call(z.querySelectorAll('.os button')),ps=[].slice.call(z.querySelectorAll('.zakl-panel'));
+function pokaz(k){bs.forEach(function(b,j){b.classList.toggle('akt',j===k)});ps.forEach(function(p,j){p.hidden=j!==k})}
+bs.forEach(function(b,j){b.addEventListener('click',function(){pokaz(j)})});pokaz(0)})})();
+</script>
 <script id="latwo-js">
 /* Mniej wyborów naraz (prawo Hicka) i przewodnik dla osób, które otwierają materiały pierwszy raz.
    Wymaga od silnika: .slajd[data-p], #spisLista, .spis .opcje, #mapaBtn, #motywBtn, #trybBtn, window.idzDoSlajdu(k), zdarzenie „slajd”. */
@@ -2427,6 +2590,39 @@ function start(){if(!warstwa)zbuduj();poprz=document.activeElement;lista_k=kroki
 function koniec(){gz(KLUCZ,'1');if(warstwa)warstwa.hidden=true;body.classList.remove('przew-otwarty');if(poprz&&poprz.focus)poprz.focus()}
 window.pokazPrzewodnik=start;
 if(!gl(KLUCZ)&&!window.TRYB_PROWADZACEGO&&!/[?&]bez-przewodnika/.test(location.search))setTimeout(start,700);
+})();
+
+/* „Studio przypadku”: praca projektowa w grupach. Pole .zadanie zapisuje odpowiedzi w telefonie,
+   a grupa kopiuje je albo pobiera jako plik .txt i wysyła prowadzącemu.
+   Składnia: <div class="zadanie" data-zadanie="ID" data-tytul="…"><p class="naglowek-zad">…</p>…
+   <label for="x">…</label><textarea id="x" data-pole="klucz" data-slowa="80–150"></textarea></div> */
+(function(){
+'use strict';
+var Z=window.ZAJECIA||{},NR=Z.nr||(/Historia organizacji|Skąd się wzięły organizacje/.test(document.title)?2:0),KL='pz-z'+NR+(window.TRYB_PROWADZACEGO?'-p':'')+':';
+function gl(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function gz(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function wsz(s,c){return [].slice.call((c||document).querySelectorAll(s))}
+wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz=KL+'zad:'+id,dane={};try{dane=JSON.parse(gl(klucz)||'{}')}catch(e){}
+  var tytul=z.dataset.tytul||('Zadanie '+id),pola=wsz('[data-pole]',z);
+  var gr=document.createElement('div');gr.innerHTML='<label>Skład grupy (imiona i nazwiska)</label><input type="text" autocomplete="off" data-grupa>';z.appendChild(gr);
+  var ai=document.createElement('div');ai.innerHTML='<label>Czy korzystaliście z AI? Do czego? (jedno zdanie)</label><input type="text" data-ai>';z.appendChild(ai);
+  var pr=document.createElement('div');pr.className='przyciski';pr.innerHTML='<button class="btn glowny" type="button" data-kopiuj>Kopiuj wynik grupy</button><button class="btn" type="button" data-pobierz>Pobierz plik .txt</button>';z.appendChild(pr);
+  var st=document.createElement('p');st.className='status';st.setAttribute('aria-live','polite');z.appendChild(st);
+  var tz=null;function zapisano(){st.textContent='Zapisano w telefonie.';clearTimeout(tz);tz=setTimeout(function(){if(st.textContent==='Zapisano w telefonie.')st.textContent=''},2500)}
+  var gg=z.querySelector('[data-grupa]'),ai2=z.querySelector('[data-ai]');gg.value=dane._grupa||'';ai2.value=dane._ai||'';
+  function zapisz(){gz(klucz,JSON.stringify(dane));zapisano()}
+  pola.forEach(function(p){var k=p.dataset.pole;if(dane[k])p.value=dane[k];var lc=null;if(p.dataset.slowa){lc=document.createElement('p');lc.className='licz';p.after(lc)}
+    function licz(){if(lc){var n=(p.value.trim().match(/\S+/g)||[]).length;lc.textContent=n+' słów (cel: '+p.dataset.slowa+')'}}licz();
+    p.addEventListener('input',function(){dane[k]=p.value;licz();zapisz()})});
+  gg.addEventListener('input',function(){dane._grupa=gg.value;zapisz()});ai2.addEventListener('input',function(){dane._ai=ai2.value;zapisz()});
+  function tekst(){var t=[(document.title||'').replace(/^\[prowadzący\] /,''),tytul,'Grupa: '+(gg.value||'…'),''];
+    pola.forEach(function(p){var lab=z.querySelector('label[for="'+p.id+'"]'),n=lab?lab.textContent:(p.getAttribute('aria-label')||p.dataset.pole);t.push(n);t.push(p.value.trim()||'(brak odpowiedzi)');t.push('')});
+    t.push('AI: '+(ai2.value.trim()||'nie korzystaliśmy'));return t.join('\n')}
+  z.querySelector('[data-kopiuj]').onclick=function(){var t=tekst();function ok(){st.textContent='Skopiowane. Wklej do wiadomości do prowadzącego.'}
+    function zapas(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){st.textContent='Nie udało się skopiować. Pobierz plik.'}a.remove()}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,function(){zapas(t)});else zapas(t)};
+  z.querySelector('[data-pobierz]').onclick=function(){var b=new Blob([tekst()],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download='zajecia-'+NR+'-studio-'+id+'.txt';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);st.textContent='Plik pobrany. Wyślij go prowadzącemu.'}});
 })();
 </script>
 </body>
