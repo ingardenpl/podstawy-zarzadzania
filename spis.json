@@ -1,0 +1,169 @@
+[
+ {
+  "nr": 1,
+  "data": "6.10.2026",
+  "tytul": "Jak działa ten kurs?",
+  "podtytul": "Zajęcia organizacyjne: pytanie semestru, rytm zajęć, dwie ścieżki zaliczenia, projekt „Kontrapunkt” i zasady korzystania z AI.",
+  "przystanki": [
+   "Pytanie semestru",
+   "Jak zdobyć zaliczenie",
+   "Projekt „Kontrapunkt”",
+   "Projekt nr 2 i AI"
+  ],
+  "ikona": "🧭"
+ },
+ {
+  "nr": 3,
+  "data": "17.11.2026",
+  "tytul": "Skąd się wziął kierownik i czy pracę da się zmierzyć?",
+  "podtytul": "Rewolucja przemysłowa i Frederick W. Taylor. Kontrapunkt: Henri Fayol, czyli organizacja widziana z gabinetu dyrektora.",
+  "przystanki": [
+   "Od szpilki do kierownika",
+   "Naukowe zarządzanie",
+   "Kontrapunkt: Fayol",
+   "Prawo wchodzi do fabryki"
+  ],
+  "ikona": "📌"
+ },
+ {
+  "nr": 5,
+  "data": "24.11.2026",
+  "tytul": "Czy pracownik jest też klientem?",
+  "podtytul": "Henry Ford, linia montażowa i „pięć dolarów dziennie”. Kontrapunkt: Taiichi Ohno i W. Edwards Deming, czyli Toyota jako odpowiedź na Forda.",
+  "przystanki": [
+   "Kwestionariusz Forda",
+   "Henry Ford",
+   "Kontrapunkt: Ohno i Deming",
+   "Ford przed sądem pracy"
+  ],
+  "ikona": "🏠"
+ },
+ {
+  "nr": 6,
+  "data": "24.11.2026",
+  "tytul": "Jeden najlepszy ruch",
+  "podtytul": "Frank i Lillian Gilbrethowie: badanie ruchów, zmęczenie i ergonomia. Kontrapunkt: Karol Adamiecki i Tadeusz Kotarbiński, czyli polska szkoła sprawnego działania.",
+  "przystanki": [
+   "Kawa w ruchach",
+   "Gilbrethowie",
+   "Kontrapunkt: polska szkoła",
+   "Ergonomia w prawie"
+  ],
+  "ikona": "☕"
+ },
+ {
+  "nr": 7,
+  "data": "1.12.2026",
+  "tytul": "Władza „nad” czy władza „z”?",
+  "podtytul": "Mary Parker Follett: konflikt, integracja i prawo sytuacji. Kontrapunkt: Max Weber, władza legalna i biurokracja.",
+  "przystanki": [
+   "Okno w czytelni",
+   "Follett",
+   "Kontrapunkt: Weber",
+   "Reguła i ugoda"
+  ],
+  "ikona": "🪟"
+ },
+ {
+  "nr": 8,
+  "data": "1.12.2026",
+  "tytul": "Co naprawdę zmienia wydajność?",
+  "podtytul": "Elton Mayo i badania w Hawthorne: grupa, normy i legenda „efektu Hawthorne”. Kontrapunkt: Maslow, McGregor i Herzberg, czyli czego potrzebuje człowiek w pracy.",
+  "przystanki": [
+   "Światło w Hawthorne",
+   "Mayo i grupa",
+   "Kontrapunkt: motywacja",
+   "Godność w prawie"
+  ],
+  "ikona": "💡"
+ },
+ {
+  "nr": 9,
+  "data": "8.12.2026",
+  "tytul": "Czy decydent jest racjonalny?",
+  "podtytul": "Herbert A. Simon, Daniel Kahneman i Amos Tversky: jak naprawdę podejmujemy decyzje. Kontrapunkt: Gerd Gigerenzer, czyli heurystyki jako inteligencja.",
+  "przystanki": [
+   "Trzy eksperymenty",
+   "Od Simona do Kahnemana",
+   "Kontrapunkt: Gigerenzer",
+   "Decyzje w prawie"
+  ],
+  "ikona": "🧪"
+ },
+ {
+  "nr": 10,
+  "data": "8.12.2026",
+  "tytul": "Gdy inni też myślą",
+  "podtytul": "Teoria gier: John Nash, Thomas Schelling i Robert Axelrod. Kontrapunkt: Elinor Ostrom, czyli współpraca bez państwa i bez rynku.",
+  "przystanki": [
+   "Turniej w parach",
+   "Nash, Axelrod, Schelling",
+   "Kontrapunkt: Ostrom",
+   "Prawo zmienia grę"
+  ],
+  "ikona": "🎲"
+ },
+ {
+  "nr": 11,
+  "data": "15.12.2026",
+  "tytul": "Mózg na ławie oskarżonych",
+  "podtytul": "Neuroprawo: eksperyment Libeta, Greene i Cohen, dojrzewanie mózgu i „wykrywacze kłamstw”. Kontrapunkt: Stephen J. Morse, czyli odpowiedzialność bez metafizyki.",
+  "przystanki": [
+   "Eksperyment Libeta",
+   "Neuronauka w sądzie",
+   "Kontrapunkt: Morse",
+   "Mózg w kodeksie"
+  ],
+  "ikona": "⏳"
+ },
+ {
+  "nr": 12,
+  "data": "12.01.2027",
+  "tytul": "Start-up: nowe zarządzanie i nowe formy prawne",
+  "podtytul": "Ronald Coase, Andy Grove i Frederic Laloux. Kontrapunkt: Peter Drucker i pytanie, czy OKR to MBO w nowym opakowaniu.",
+  "przystanki": [
+   "Bingo buzzwordów",
+   "Po co firma?",
+   "Kontrapunkt: Drucker",
+   "Forma prawna zarządza"
+  ],
+  "ikona": "🎲"
+ },
+ {
+  "nr": 13,
+  "data": "19.01.2027",
+  "tytul": "AI jako narzędzie menedżera: centaur czy zastępca?",
+  "podtytul": "Generatywna AI w pracy wiedzy: badania terenowe, poszarpana granica i błąd automatyzacji. Kontrapunkt: Shoshana Zuboff i kapitalizm inwigilacji.",
+  "przystanki": [
+   "Kazus z AI i bez",
+   "Centaury i cyborgi",
+   "Kontrapunkt: Zuboff",
+   "Kto odpowiada?"
+  ],
+  "ikona": "🤖"
+ },
+ {
+  "nr": 14,
+  "data": "26.01.2027",
+  "tytul": "Algorytm jako szef: kto pilnuje algorytmu?",
+  "podtytul": "Zarządzanie algorytmiczne, cyfrowy tayloryzm i ład AI w organizacji. W drugiej części: prezentacje projektu nr 2.",
+  "przystanki": [
+   "Kierowca platformy",
+   "Cyfrowy tayloryzm",
+   "Kto pilnuje algorytmu?"
+  ],
+  "ikona": "🚗"
+ },
+ {
+  "nr": 15,
+  "data": "2.02.2027",
+  "tytul": "Od maszyny do algorytmu",
+  "podtytul": "Synteza semestru: mapa metafor organizacji od Taylora do platformy. Potem test zaliczeniowy.",
+  "przystanki": [
+   "Mapa metafor",
+   "Czy zatoczyliśmy koło?",
+   "Przed testem"
+  ],
+  "ikona": "🗺️"
+ }
+]

@@ -1,10 +1,10 @@
-# Podstawy zarządzania: skąd się wzięły organizacje?
+# Podstawy zarządzania 2026/27
 
-Interaktywny wykład na telefon i tablet dla studentów kierunku prawno-biznesowego, WPiA UMCS, rok akademicki 2026/2027.
+Interaktywny kurs na telefon i tablet dla studentów kierunku prawno-biznesowego, WPiA UMCS, rok akademicki 2026/2027.
 
-**Otwórz wykład:** https://ingardenpl.github.io/podstawy-zarzadzania/
+**Strona kursu:** https://ingardenpl.github.io/podstawy-zarzadzania/
 
-Dziewięć przystanków: od bombowców B-17 i błędu przeżywalności, przez liczbę Dunbara, kosmiczny kalendarz, ewolucję mózgu i pierwsze społeczności, piramidę DIKW, pismo i media, do narodzin myśli organizatorskiej i eksperymentu Milgrama. Każdy przystanek kończy się krótkim quizem.
+Interaktywne lekcje na telefon, każda w osobnym folderze `zajecia-NN`. Wykład „Skąd się wzięły organizacje?” jest w `zajecia-02`.
 
 Strona działa bez instalacji, także offline po pierwszym otwarciu w przeglądarce. Odpowiedzi w quizach i notatki zapisują się wyłącznie w przeglądarce studenta.
 
